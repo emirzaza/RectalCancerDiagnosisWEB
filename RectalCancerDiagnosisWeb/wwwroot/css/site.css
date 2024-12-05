@@ -19,4 +19,17 @@ html {
 
 body {
   margin-bottom: 60px;
+ 
+}
+
+main {
+    margin-top:58px;
+}
+
+.navbar {
+    background-color: #92C7CF;
+}
+
+.offcanvas{
+    background-color:pink;
 }
