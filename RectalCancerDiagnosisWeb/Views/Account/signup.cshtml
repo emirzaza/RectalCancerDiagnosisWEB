@@ -3,5 +3,81 @@
     ViewData["Title"] = "signup";
 }
 
-<h1>signup</h1>
+@model User
+
+<style>
+    form {
+        width: 100%;
+        max-width: 400px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        font-family: Arial, sans-serif;
+    }
+
+        form input[type="text"],
+        form button {
+            width: calc(100% - 20px);
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+            form input[type="text"]:focus {
+                border-color: #007bff;
+                outline: none;
+                box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+            }
+
+        form button {
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            form button:hover {
+                background-color: #0056b3;
+            }
+
+            form button:active {
+                background-color: #003f7f;
+            }
+
+        form br {
+            display: none;
+        }
+</style>
+
+<form asp-controller="account" asp-action="signup" method="post">
+
+    <label for="Name">Name:</label>
+    <input type="text" asp-for="Name" />
+    <br />
+    <label for="Surname">Surname:</label>
+    <input type="text" asp-for="Surname" />
+    <br />
+    <label for="Username">Username:</label>
+    <input type="text" asp-for="Username" />
+    <br />
+    <label for="Password">Password:</label>
+    <input type="text" asp-for="Password" />
+    <br />
+
+    <input type="text" asp-for="Email" />
+    <br />
+
+    <button type="submit"> Sign Up</button>
+
+</form>
+
+
 
