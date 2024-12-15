@@ -1,10 +1,9 @@
 ﻿
 @{
-    ViewData["Title"] = "login";
-    Layout = "index";
+    ViewData["Title"] = "accountCenter";
 }
 
-@model User
+<h1>accountCenter</h1>
 
 <style>
     body {
@@ -69,15 +68,25 @@
 </style>
 
 <div class="content-wrapper">
-    <form  asp-controller="account" asp-action="login" method="post">
+    <form asp-controller="account" asp-action="signup" method="post">
 
-        <input type="text" asp-for="Username" />
+        <label for="Name">Name:</label>
+        <input type="text"  />
+        <br />
+        <label for="Surname">Surname:</label>
+        <input type="text" />
+        <br />
+        <label for="Username">Username:</label>
+        <input type="text" />
         <br />
         <label for="Password">Password:</label>
-        <input type="text" asp-for="Password" />
+        <input type="text" />
+        <br />
+        <label for="Email">E-mail:</label>
+        <input type="text"  />
         <br />
 
-        <button type="submit"> Sign Up</button>
-        <p>Dont have an account? <a asp-controller="account" asp-action="signup" method="post" methot="get">create a free account</a>!</p>
+        <button type="submit"> UPDATE </button>
+
     </form>
 </div>

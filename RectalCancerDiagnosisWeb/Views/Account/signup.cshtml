@@ -1,11 +1,15 @@
 ﻿
 @{
     ViewData["Title"] = "signup";
+    Layout = "index";
 }
 
 @model User
 
 <style>
+    body{
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/img/background.jpg');
+    }
     form {
         width: 100%;
         max-width: 400px;
@@ -55,8 +59,15 @@
         form br {
             display: none;
         }
+
+        .content-wrapper{
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
 </style>
 
+<div class="content-wrapper">
 <form asp-controller="account" asp-action="signup" method="post">
 
     <label for="Name">Name:</label>
@@ -71,13 +82,13 @@
     <label for="Password">Password:</label>
     <input type="text" asp-for="Password" />
     <br />
-
+    <label for="Email">E-mail:</label>
     <input type="text" asp-for="Email" />
     <br />
 
     <button type="submit"> Sign Up</button>
 
 </form>
-
+</div>
 
 

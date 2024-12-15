@@ -11,15 +11,38 @@ namespace RectalCancerDiagnosisWeb.Controllers
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
+        [HttpGet]
         public IActionResult login()
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult login(User _user)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = _context.Users
+                    .FirstOrDefault(u => u.Username == _user.Username && u.Password == _user.Password);
+
+                if (user != null)
+                {
+                    return RedirectToAction("Mainpage", "Main");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid username or password");
+                    
+                }
+            }
+            return View(_user);
+        }
+
         [HttpGet]
         public IActionResult signup()
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult signup(User newuser)
         {
