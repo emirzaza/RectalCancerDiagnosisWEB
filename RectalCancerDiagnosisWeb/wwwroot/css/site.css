@@ -1,6 +1,7 @@
 body {
-    overflow-x: hidden
+    overflow: hidden
 }
+
 .navbar {
     background-color: #f8f9fa; 
     padding: 10px 20px;

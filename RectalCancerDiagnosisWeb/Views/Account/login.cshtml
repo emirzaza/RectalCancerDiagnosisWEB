@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "login";
     Layout = "index";
 }
@@ -7,20 +6,28 @@
 @model User
 
 <style>
-    body {
+   
+    main {
         background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/img/background.jpg');
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        height: 100vh; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
     }
 
+    
     form {
         width: 100%;
         max-width: 400px;
-        margin: 20px auto;
         padding: 20px;
         background-color: #f9f9f9;
         border: 1px solid #ddd;
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        font-family: Arial, sans-serif;
     }
 
         form input[type="text"],
@@ -59,21 +66,31 @@
                 background-color: #003f7f;
             }
 
-        form br {
-            display: none;
+    
+    p {
+        text-align: center;
+    }
+
+        p a {
+            color: #007bff;
+            text-decoration: none;
         }
 
+            p a:hover {
+                text-decoration: underline;
+            }
+
+    
     .content-wrapper {
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: center; 
+        height: 100vh; 
     }
 </style>
 
-
 <div class="content-wrapper">
-    <form  asp-controller="account" asp-action="login" method="post">
-
+    <form asp-controller="account" asp-action="login" method="post">
         <label for="Username">Username:</label>
         <input type="text" asp-for="Username" />
         <br />
@@ -81,9 +98,8 @@
         <input type="password" asp-for="Password" />
         <br />
 
-        <button type="submit"> Sign Up</button>
+        <button type="submit">Sign Up</button>
 
-        <p>Dont have an account? <a asp-controller="account" asp-action="signup" method="post" methot="get">create a free account</a>!</p>
+        <p>Don't have an account? <a asp-controller="account" asp-action="signup" method="post" method="get">create a free account</a>!</p>
     </form>
 </div>
-
