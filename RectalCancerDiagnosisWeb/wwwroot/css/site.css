@@ -1,35 +1,73 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
-  margin-bottom: 60px;
- 
+    overflow-x: hidden
 }
-
-main {
-    margin-top:58px;
-}
-
 .navbar {
-    background-color: #92C7CF;
+    background-color: #f8f9fa; 
+    padding: 10px 20px;
 }
 
-.offcanvas{
-    background-color:pink;
+.navbar .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #007bff; 
 }
+
+    .navbar .navbar-brand:hover {
+        color: #0056b3; 
+        text-decoration: none;
+    }
+
+.navbar .nav-item {
+    list-style: none;
+}
+
+.navbar .nav-link {
+    color: #333;
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0 10px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+    .navbar .nav-link:hover {
+        color: #007bff; 
+    }
+
+.navbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar .navbar-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.navbar .logout-button {
+    background-color: #dc3545; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .navbar .logout-button:hover {
+        background-color: #c82333; 
+    }
+
+.navbar .offcanvas {
+    flex-grow: 1;
+}
+
+    .navbar .offcanvas .offcanvas-header {
+        border-bottom: 1px solid #ddd;
+    }
+
+

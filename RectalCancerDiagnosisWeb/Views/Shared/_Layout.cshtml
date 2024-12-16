@@ -14,33 +14,26 @@
     <header>
         <nav class="navbar navbar-expand-lg">
             <div class="container">
-                <a class=" navbar-brand" href="#">MRI DETECTION APP</a>
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" ,id="sidebar">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">MRI DETECTION APP</h5>
-                        <button type="button border-0" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body d-flex">
-                        <ul class="navbar-nav justify-content-center align-items-center flex-grow-1 pe-3">
-                            <li class="nav-item mx-2">
-                                <a class="nav-link active" aria-current="page" asp-controller="Main" asp-action="Mainpage" >Main Page</a>
-                            </li>
-                            <li class="nav-item mx-2">
-                                <a class="nav-link active" aria-current="page" asp-controller="Main" asp-action="previousResults">Previous Results</a>
-                            </li>
-                            <li class="nav-item mx-2">
-                                <a class="nav-link active" aria-current="page" asp-controller="Main" asp-action="accountCenter">Account Center</a>
-                            </li>
-                            <li class="nav-item mx-2">
-                                <a class="nav-link active" aria-current="page" asp-controller="Account" asp-action="logout">Log out</a>
-                            </li>
-                        </ul>
+                <!-- Sol Taraf: Uygulama Adı -->
+                <a class="navbar-brand" href="#">MRI DETECTION APP</a>
 
-                    </div>
-                </div>
+                <!-- Orta Kısım: Menü -->
+                <ul class="navbar-nav justify-content-center align-items-center">
+                    <li class="nav-item mx-2">
+                        <a class="nav-link active" aria-current="page" asp-controller="Main" asp-action="Mainpage">Main Page</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link active" aria-current="page" asp-controller="Main" asp-action="previousResults">Previous Results</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link active" aria-current="page" asp-controller="Main" asp-action="accountCenter">Account Center</a>
+                    </li>
+                </ul>
+
+                <!-- Sağ Taraf: Log Out -->
+                <a asp-controller="Account" asp-action="logout">
+                    <button class="logout-button">Log Out</button>
+                </a>
             </div>
         </nav>
     </header>
