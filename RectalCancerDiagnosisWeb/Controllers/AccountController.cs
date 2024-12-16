@@ -26,6 +26,8 @@ namespace RectalCancerDiagnosisWeb.Controllers
 
                 if (user != null)
                 {
+                    HttpContext.Session.SetInt32("UserId", user.UserID);
+
                     return RedirectToAction("Mainpage", "Main");
                 }
                 else
@@ -51,5 +53,13 @@ namespace RectalCancerDiagnosisWeb.Controllers
 
             return RedirectToAction("login");
         }
+
+        public IActionResult logout() 
+        {
+            HttpContext.Session.Clear();
+
+            return RedirectToAction("login");
+        }
+
     }
 }

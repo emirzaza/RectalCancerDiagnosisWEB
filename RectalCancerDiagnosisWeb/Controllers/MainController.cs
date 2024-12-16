@@ -6,6 +6,8 @@ namespace RectalCancerDiagnosisWeb.Controllers
     {
         public IActionResult Mainpage()
         {
+            var userId = HttpContext.Session.GetInt32("UserId");
+            ViewBag.UserId = userId;
             return View();
         }
 

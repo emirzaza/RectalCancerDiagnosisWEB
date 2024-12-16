@@ -24,6 +24,7 @@
     }
 
         form input[type="text"],
+        form input[type="password"],
         form button {
             width: calc(100% - 20px);
             margin: 10px 0;
@@ -34,7 +35,8 @@
             box-sizing: border-box;
         }
 
-            form input[type="text"]:focus {
+            form input[type="text"]:focus,
+            form input[type="password"]:focus {
                 border-color: #007bff;
                 outline: none;
                 box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
@@ -68,16 +70,20 @@
     }
 </style>
 
+
 <div class="content-wrapper">
     <form  asp-controller="account" asp-action="login" method="post">
 
+        <label for="Username">Username:</label>
         <input type="text" asp-for="Username" />
         <br />
         <label for="Password">Password:</label>
-        <input type="text" asp-for="Password" />
+        <input type="password" asp-for="Password" />
         <br />
 
         <button type="submit"> Sign Up</button>
+
         <p>Dont have an account? <a asp-controller="account" asp-action="signup" method="post" methot="get">create a free account</a>!</p>
     </form>
 </div>
+
