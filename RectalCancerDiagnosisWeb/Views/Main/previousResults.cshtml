@@ -1,4 +1,4 @@
-﻿
+﻿@model List<User>
 @{
     ViewData["Title"] = "previousResults";
 }
@@ -79,7 +79,16 @@
         </tr>
     </thead>
     <tbody>
-        
+        @foreach(var item in Model)
+        {
+            <tr>
+                <th>@item.UserID</th>
+                <th>@item.Username</th>
+                <th>@item.Email</th>
+                <th>@item.Name</th>
+            </tr>
+        }
+       
             <tr>
                 <td colspan="4" class="text-center">No data available</td>
             </tr>

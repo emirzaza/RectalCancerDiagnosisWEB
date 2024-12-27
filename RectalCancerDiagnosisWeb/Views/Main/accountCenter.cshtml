@@ -48,7 +48,9 @@
         }
 
         
-        form input[type="text"] {
+        form input[type="text"],
+        form input[type="email"],
+        form input[type="password"] {
             width: 100%;
             padding: 12px;
             margin-bottom: 15px;
@@ -60,8 +62,10 @@
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-            
-            form input[type="text"]:focus {
+
+            form input[type="text"],
+            form input[type="email"],
+            form input[type="password"]:focus {
                 border-color: #007bff;
                 box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
                 outline: none;
@@ -107,25 +111,26 @@
     }
 </style>
 
+@model User
     
     <div class="content-wrapper">
     <h1>accountCenter</h1>
     <form asp-controller="account" asp-action="signup" method="post">
 
         <label for="Name">Name:</label>
-        <input type="text" />
+        <input type="text" asp-for="Name" />
         <br />
         <label for="Surname">Surname:</label>
-        <input type="text" />
+        <input type="text" asp-for="Surname" />
         <br />
         <label for="Username">Username:</label>
-        <input type="text" />
+        <input type="text" asp-for="Username" />
         <br />
         <label for="Password">Password:</label>
-        <input type="text" />
+        <input type="password" asp-for="Password" />
         <br />
         <label for="Email">E-mail:</label>
-        <input type="text" />
+        <input type="email" asp-for="Email" />
         <br />
 
         <button type="submit"> UPDATE </button>

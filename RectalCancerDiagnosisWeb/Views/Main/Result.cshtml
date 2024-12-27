@@ -1,0 +1,164 @@
+﻿@{
+    ViewData["Title"] = "Prediction Result";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f8fa;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        background-color: #e6f7ff;
+    }
+
+    h2 {
+        color: #007bff;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    form {
+        background-color: #ffffff;
+        border: 1px solid #d9e9f3;
+        border-radius: 10px;
+        padding: 25px 35px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+        transition: transform 0.3s ease;
+    }
+
+        form:hover {
+            transform: translateY(-5px);
+        }
+
+        form label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #0056b3;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        form input[type="text"],
+        form input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #cce4f6;
+            border-radius: 6px;
+            font-size: 14px;
+            background-color: #f9fcff;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            form input[type="text"]:focus,
+            form input[type="file"]:focus {
+                border-color: #007bff;
+                box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+                outline: none;
+            }
+
+        form button {
+            width: 100%;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+            form button:hover {
+                background-color: #0056b3;
+            }
+
+            form button:active {
+                transform: scale(0.97);
+            }
+
+    .alert {
+        width: 100%;
+        max-width: 500px;
+        padding: 15px;
+        margin-top: 20px;
+        border-radius: 6px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .alert-warning {
+        background-color: #fff4e5;
+        border-left: 5px solid #ffa726;
+        color: #856404;
+    }
+
+    .alert-danger {
+        background-color: #f8d7da;
+        border-left: 5px solid #f5c6cb;
+        color: #721c24;
+    }
+
+    .alert p {
+        margin: 0;
+    }
+
+    .btn {
+        display: inline-block;
+        text-align: center;
+        padding: 10px 20px;
+        font-size: 14px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+    }
+
+        .btn-secondary:hover {
+            background-color: #565e64;
+        }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-primary:active {
+        transform: scale(0.97);
+    }
+</style>
+
+
+<h2>Prediction Result</h2>
+
+@if (ViewBag.Prediction != null)
+{
+<p><strong>MRI Name:</strong> @ViewBag.MRIName</p>
+<pre><strong>Prediction:</strong> @ViewBag.Prediction</pre>
+}
+else
+{
+<div class="alert alert-warning">No prediction result available.</div>
+}
+
+<a href="/Main/Mainpage" class="btn btn-secondary">Upload Another File</a>

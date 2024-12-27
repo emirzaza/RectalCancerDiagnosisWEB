@@ -81,22 +81,31 @@
             form button:active {
                 transform: scale(0.98);
             }
-
-
 </style>
 
-<h2>ADD MRI  </h2>
 
-<form >
+<h2>Upload NII File</h2>
+
+<form action="/Main/UploadNii" method="post" enctype="multipart/form-data">
     <div class="mb-3">
-        <label>Name your mri</label>
-        <br />
-        <input type ="text" />
-        <br />
-        <label for="formFile" class="form-label">Choose the mri file</label>
-        <br />
-        <input class="form-control" type="file" id="formFile" name="image" required>
+        <label for="mriName">Name your MRI</label>
+        <input type="text" id="mriName" name="mriName" class="form-control" required />
     </div>
-    
-    <button type="submit" class="btn btn-primary">SUBMIT</button>
+
+    <div class="mb-3">
+        <label for="niiFile" class="form-label">Choose a NII File</label>
+        <input type="file" id="niiFile" name="niiFile" class="form-control" accept=".nii" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}
