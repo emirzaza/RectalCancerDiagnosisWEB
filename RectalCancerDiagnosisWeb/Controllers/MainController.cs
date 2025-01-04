@@ -8,19 +8,22 @@ using System.IO;
 public class MainController : Controller
     {
         private readonly AppDbContext _context;
-        private readonly string FlaskApiUrl = "http://127.0.0.1:5000/predict";
+    private const string FlaskApiUrl = "http://127.0.0.1:5000";
 
-        public MainController(AppDbContext context)
+
+    public MainController(AppDbContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             
         }
-        public IActionResult Mainpage()
-        {
-            var userId = HttpContext.Session.GetInt32("UserId");
-            ViewBag.UserId = userId;
-            return View();
-        }
+
+    public IActionResult Mainpage()
+    {
+        var userId = HttpContext.Session.GetInt32("UserId");
+        ViewBag.UserId = userId;
+        return View();
+    }
+
     [HttpPost]
     public async Task<IActionResult> UploadNii(IFormFile niiFile, string mriName)
     {
@@ -44,14 +47,25 @@ public class MainController : Controller
                     fileContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
                     form.Add(fileContent, "image", niiFile.FileName);
 
-                    var response = await client.PostAsync(FlaskApiUrl, form);
+                    // Flask API'ye tahmin için istek gönder
+                    var response = await client.PostAsync($"{FlaskApiUrl}/predict", form);
                     response.EnsureSuccessStatusCode();
 
+                    // Tahmin sonuçlarını al
                     var jsonResponse = await response.Content.ReadAsStringAsync();
-                    var prediction = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
+                    dynamic prediction = JsonConvert.DeserializeObject(jsonResponse);
 
-                    ViewBag.Prediction = prediction;
+                    if (prediction == null || prediction.result == null || prediction.png_path == null)
+                    {
+                        ModelState.AddModelError("ApiError", "Invalid response from Flask API.");
+                        return View("Mainpage");
+                    }
+
+                    // Tahmin sonucunu ve görseli işlemek için ViewBag'e aktar
+                    ViewBag.Prediction = prediction.result.ToString();
+                    ViewBag.ImageUrl = $"{FlaskApiUrl}/{prediction.png_path}";
                     ViewBag.MRIName = mriName;
+
                     return View("Result");
                 }
             }
@@ -66,7 +80,9 @@ public class MainController : Controller
 
 
 
-        public IActionResult previousResults()
+
+
+    public IActionResult previousResults()
         {
             List<User> userr = _context.Users.ToList();
             return View(userr);
@@ -76,9 +92,29 @@ public class MainController : Controller
         {
             return View();
         }
+
+    [HttpPost]
+        public IActionResult accountCenter(User model)
+    {
+        var userId = HttpContext.Session.GetInt32("UserId");
+        var existingUser = _context.Users.FirstOrDefault(u => u.UserID == userId);
         
+        existingUser.Name = !string.IsNullOrWhiteSpace(model.Name) ? model.Name : existingUser.Name;
+        existingUser.Surname = !string.IsNullOrWhiteSpace(model.Surname) ? model.Surname : existingUser.Surname;
+        existingUser.Username = !string.IsNullOrWhiteSpace(model.Username) ? model.Username : existingUser.Username;
+        existingUser.Password = !string.IsNullOrWhiteSpace(model.Password) ? model.Password : existingUser.Password;
+        existingUser.Email = !string.IsNullOrWhiteSpace(model.Email) ? model.Email : existingUser.Email;
 
-
-
+        _context.SaveChanges();
+        return RedirectToAction("Mainpage", "Main");
     }
+
+}
+
+
+
+
+
+
+    
 

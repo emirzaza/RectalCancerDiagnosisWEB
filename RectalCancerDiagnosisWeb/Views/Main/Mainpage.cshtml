@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Mainpage";
 }
 
@@ -83,7 +82,6 @@
             }
 </style>
 
-
 <h2>Upload NII File</h2>
 
 <form action="/Main/UploadNii" method="post" enctype="multipart/form-data">
@@ -102,10 +100,10 @@
 
 @if (!ViewData.ModelState.IsValid)
 {
-    <div class="alert alert-danger">
-        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+<div class="alert alert-danger">
+    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
         {
-            <p>@error.ErrorMessage</p>
+    <p>@error.ErrorMessage</p>
         }
-    </div>
+</div>
 }
