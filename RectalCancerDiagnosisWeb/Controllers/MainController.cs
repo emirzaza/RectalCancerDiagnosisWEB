@@ -23,7 +23,6 @@ public class MainController : Controller
         ViewBag.UserId = userId;
         return View();
     }
-
     [HttpPost]
     public async Task<IActionResult> UploadNii(IFormFile niiFile, string mriName)
     {
@@ -47,35 +46,41 @@ public class MainController : Controller
                     fileContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
                     form.Add(fileContent, "image", niiFile.FileName);
 
-                    // Flask API'ye tahmin için istek gönder
-                    var response = await client.PostAsync($"{FlaskApiUrl}/predict", form);
+                    // Flask API URL
+                    var flaskApiUrl = "http://127.0.0.1:5000/predict"; // Flask API'nizin doğru URL'si
+
+                    var response = await client.PostAsync(flaskApiUrl, form);
                     response.EnsureSuccessStatusCode();
 
-                    // Tahmin sonuçlarını al
                     var jsonResponse = await response.Content.ReadAsStringAsync();
                     dynamic prediction = JsonConvert.DeserializeObject(jsonResponse);
 
-                    if (prediction == null || prediction.result == null || prediction.png_path == null)
+                    if (prediction == null || prediction.result == null || prediction.nii_path == null)
                     {
                         ModelState.AddModelError("ApiError", "Invalid response from Flask API.");
                         return View("Mainpage");
                     }
 
-                    // Tahmin sonucunu ve görseli işlemek için ViewBag'e aktar
+                    // ViewBag ile tahmin sonuçlarını gönder
                     ViewBag.Prediction = prediction.result.ToString();
-                    ViewBag.ImageUrl = $"{FlaskApiUrl}/{prediction.png_path}";
+                    ViewBag.NiiPath = $"{flaskApiUrl.Replace("/predict", "")}/{prediction.nii_path}";
                     ViewBag.MRIName = mriName;
+                    ViewBag.Visualization = prediction.visualization.ToString(); // Base64 görselleştirme
 
                     return View("Result");
                 }
             }
         }
-        catch (HttpRequestException ex)
+        catch (Exception ex)
         {
-            ModelState.AddModelError("ApiError", $"Error calling Flask API: {ex.Message}");
+            ModelState.AddModelError("ApiError", $"Error communicating with Flask API: {ex.Message}");
             return View("Mainpage");
         }
     }
+
+
+
+
 
 
 

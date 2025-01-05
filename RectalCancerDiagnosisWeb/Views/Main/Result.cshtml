@@ -1,61 +1,96 @@
 ﻿@{
-    ViewData["Title"] = "Prediction Result";
+    ViewData["Title"] = "Tahmin Sonuçları";
 }
 
 <style>
     main {
-        font-family: Arial, sans-serif;
-        background-color: #f5f8fa;
-        padding: 20px;
-        text-align: center;
+        font-family: 'Arial', sans-serif;
+        background-color: #f0f8ff; /* AliceBlue background */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
     }
 
     .result-container {
         background-color: #ffffff;
-        border: 1px solid #d9e9f3;
+        border: 1px solid #dce0e5;
         border-radius: 10px;
-        padding: 20px;
-        max-width: 800px;
-        margin: auto;
+        padding: 30px 40px;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 600px;
+        text-align: center;
     }
 
-        .result-container img {
-            max-width: 100%;
-            height: auto;
-            margin-top: 20px;
-            border-radius: 8px;
+    h2 {
+        color: #0056b3; /* Darker blue */
+        margin-bottom: 20px;
+    }
+
+    .info {
+        margin-bottom: 20px;
+        font-size: 16px;
+        color: #555;
+    }
+
+        .info strong {
+            color: #333;
         }
 
-        .result-container h3 {
-            margin-top: 20px;
-            font-size: 18px;
-            color: #007bff;
-        }
-
-    .btn {
+    .download-btn {
         display: inline-block;
-        margin-top: 20px;
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: #fff;
+        background-color: #007bff; /* Bootstrap primary blue */
+        color: #ffffff;
         text-decoration: none;
+        padding: 10px 20px;
         border-radius: 5px;
+        font-size: 16px;
+        margin-top: 15px;
+        transition: background-color 0.3s ease;
     }
 
-        .btn:hover {
-            background-color: #0056b3;
+        .download-btn:hover {
+            background-color: #0056b3; /* Darker blue */
+        }
+
+    #vtk-container {
+        margin: 20px auto;
+        width: 100%;
+        height: 300px;
+        border: 1px solid #dce0e5;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .visualization {
+        margin-top: 20px;
+    }
+
+        .visualization img {
+            max-width: 100%;
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
         }
 </style>
 
-<main>
-    <div class="result-container">
-        <h2>Prediction Result</h2>
-        <p><strong>MRI Name:</strong> @ViewBag.MRIName</p>
-        <p><strong>Prediction:</strong> @ViewBag.Prediction</p>
+<div class="result-container">
+    <h2>Tahmin Sonuçları</h2>
 
-        <h3>Visualization</h3>
-        <img src="@ViewBag.ImageUrl" alt="Tumor Visualization" />
-
-        <a href="/Main/Mainpage" class="btn">Upload Another File</a>
+    <div class="info">
+        <p><strong>MRI Adı:</strong> @ViewBag.MRIName</p>
+        <p><strong>Sonuç:</strong> @ViewBag.Prediction</p>
     </div>
-</main>
+
+    <a class="download-btn" href="@ViewBag.NiiPath" download>İşlenmiş Dosyayı İndir</a>
+
+    <div class="visualization">
+        <h3>Tümör Görselleştirme</h3>
+        <img src="data:image/png;base64,@ViewBag.Visualization" alt="Tumor Visualization">
+    </div>
+</div>
+
+

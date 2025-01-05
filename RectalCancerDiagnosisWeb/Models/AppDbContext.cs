@@ -11,5 +11,6 @@ namespace RectalCancerDiagnosisWeb.Models
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Results> sonuc { get; set; }
     }
 }
