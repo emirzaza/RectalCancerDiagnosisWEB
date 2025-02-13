@@ -5,17 +5,18 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
+
 public class MainController : Controller
-    {
-        private readonly AppDbContext _context;
+{
+    private readonly AppDbContext _context;
     private const string FlaskApiUrl = "http://127.0.0.1:5000";
 
 
     public MainController(AppDbContext context)
-        {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
-            
-        }
+    {
+        _context = context ?? throw new ArgumentNullException(nameof(context));
+
+    }
 
     public IActionResult Mainpage()
     {
@@ -24,7 +25,7 @@ public class MainController : Controller
         return View();
     }
     [HttpPost]
-    public async Task<IActionResult> UploadNii(IFormFile niiFile, string mriName)
+    public async Task<IActionResult> UploadNii(IFormFile niiFile, string mriName, string description)
     {
         if (niiFile == null || niiFile.Length == 0)
         {
@@ -47,7 +48,7 @@ public class MainController : Controller
                     form.Add(fileContent, "image", niiFile.FileName);
 
                     // Flask API URL
-                    var flaskApiUrl = "http://127.0.0.1:5000/predict"; // Flask API'nizin doğru URL'si
+                    var flaskApiUrl = "http://127.0.0.1:5000/predict";
 
                     var response = await client.PostAsync(flaskApiUrl, form);
                     response.EnsureSuccessStatusCode();
@@ -60,6 +61,20 @@ public class MainController : Controller
                         ModelState.AddModelError("ApiError", "Invalid response from Flask API.");
                         return View("Mainpage");
                     }
+
+                    int kul = HttpContext.Session.GetInt32("UserId") ?? 0; // Null ise 0 atanır
+
+                    // Veritabanına kaydetme
+                    var result = new RectalCancerDiagnosisWeb.Models.Results
+                    {
+                        userId = kul,
+                        ResultName = mriName,
+                        Description = description,
+                        Result = prediction.result.ToString()
+                    };
+
+                    _context.sonuc.Add(result);
+                    await _context.SaveChangesAsync();
 
                     // ViewBag ile tahmin sonuçlarını gönder
                     ViewBag.Prediction = prediction.result.ToString();
@@ -79,19 +94,12 @@ public class MainController : Controller
     }
 
 
-
-
-
-
-
-
-
-
     public IActionResult previousResults()
         {
-            List<User> userr = _context.Users.ToList();
+            List<RectalCancerDiagnosisWeb.Models.Results> userr = _context.sonuc.ToList();
             return View(userr);
         }
+
         [HttpGet]
         public IActionResult accountCenter()
         {

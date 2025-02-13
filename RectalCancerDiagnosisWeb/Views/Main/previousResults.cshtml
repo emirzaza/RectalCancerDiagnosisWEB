@@ -1,4 +1,4 @@
-﻿@model List<User>
+﻿@model List<RectalCancerDiagnosisWeb.Models.Results>
 @{
     ViewData["Title"] = "previousResults";
 }
@@ -82,10 +82,10 @@
         @foreach(var item in Model)
         {
             <tr>
-                <th>@item.UserID</th>
-                <th>@item.Username</th>
-                <th>@item.Email</th>
-                <th>@item.Name</th>
+                <th>@item.userId</th>
+                <th>@item.ResultName</th>
+                <th>@item.Description</th>
+                <th>@item.Result</th>
             </tr>
         }
        

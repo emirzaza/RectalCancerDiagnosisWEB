@@ -1,4 +1,4 @@
-﻿@{
+﻿﻿@{
     ViewData["Title"] = "Mainpage";
 }
 
@@ -47,6 +47,9 @@
     <label for="mriName">Name your MRI</label>
     <input type="text" id="mriName" name="mriName" required />
 
+    <label for="description">Description</label>
+    <input type="text" id="description" name="description" maxlength="50" required />
+
     <label for="niiFile">Choose a NII File</label>
     <input type="file" id="niiFile" name="niiFile" accept=".nii" required />
 
@@ -55,10 +58,10 @@
 
 @if (!ViewData.ModelState.IsValid)
 {
-<div style="color: red;">
-    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+    <div style="color: red;">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
         {
-    <p>@error.ErrorMessage</p>
+            <p>@error.ErrorMessage</p>
         }
-</div>
+    </div>
 }
